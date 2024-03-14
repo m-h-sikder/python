@@ -1,48 +1,53 @@
-# Define arithmetic functions
-def add(x, y):
-    return x + y
+def precedence(op):
+    if op in {'+', '-'}:
+        return 1
+    elif op in {'*', '/'}:
+        return 2
+    return 0  # If the operator is not recognized, return 0 precedence
 
-def subtract(x, y):
-    return x - y
+def apply_operation(op, num1, num2):
+    if op == '+':
+        return num1 + num2
+    elif op == '-':
+        return num1 - num2
+    elif op == '*':
+        return num1 * num2
+    elif op == '/':
+        if num2 == 0:
+            raise ZeroDivisionError("Cannot divide by zero")
+        return num1 / num2
 
-def multiply(x, y):
-    return x * y
-
-def divide(x, y):
-    if y == 0:
-        return "Cannot divide by zero"
-    return x / y
-
-# Function to parse and evaluate the expression
 def evaluate_expression(expression):
     operators = set(['+', '-', '*', '/'])
     numbers = []
     ops = []
 
-    # Split the expression into numbers and operators
-    num = ''
-    for char in expression:
-        if char.isdigit() or char == '.':
-            num += char
-        elif char in operators:
-            numbers.append(float(num))
+    i = 0
+    while i < len(expression):
+        if expression[i].isdigit() or expression[i] == '.':
             num = ''
-            ops.append(char)
-    numbers.append(float(num))
+            while i < len(expression) and (expression[i].isdigit() or expression[i] == '.'):
+                num += expression[i]
+                i += 1
+            numbers.append(float(num))
+        elif expression[i] in operators:
+            while ops and precedence(ops[-1]) >= precedence(expression[i]):
+                num2 = numbers.pop()
+                num1 = numbers.pop()
+                op = ops.pop()
+                numbers.append(apply_operation(op, num1, num2))
+            ops.append(expression[i])
+            i += 1
+        else:
+            i += 1
 
-    # Perform the calculations
-    result = numbers[0]
-    for i in range(1, len(numbers)):
-        if ops[i - 1] == '+':
-            result = add(result, numbers[i])
-        elif ops[i - 1] == '-':
-            result = subtract(result, numbers[i])
-        elif ops[i - 1] == '*':
-            result = multiply(result, numbers[i])
-        elif ops[i - 1] == '/':
-            result = divide(result, numbers[i])
+    while ops:
+        num2 = numbers.pop()
+        num1 = numbers.pop()
+        op = ops.pop()
+        numbers.append(apply_operation(op, num1, num2))
 
-    return result
+    return numbers[0]
 
 # Main loop to accept and evaluate expressions
 while True:
@@ -57,5 +62,5 @@ while True:
     try:
         result = evaluate_expression(user_input)
         print("Result:", result)
-    except:
-        print("Invalid input or division by zero")
+    except Exception as e:
+        print("Error:", e)
