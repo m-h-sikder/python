@@ -1,0 +1,91 @@
+"""
+Python Learning Examples
+Author: Mohammad Monir Hossen Sikder
+Sections covered:
+1. Strings
+2. Arithmetic Operations
+3. Comparison Operators
+4. Logical Operators
+5. Conditional Statements
+"""
+
+# -----------------------------
+# 1️⃣ Strings
+# -----------------------------
+name = 'Mohammad Monir Hossen Sikder'
+
+# Convert case
+print("Uppercase:", name.upper())
+print("Original:", name)
+print("Lowercase:", name.lower())
+
+# Search and replace
+print("Find 'on':", name.find('on'))  # returns index of first occurrence
+print("Replace 'on' with 'ON':", name.replace('on', 'ON'))
+print("Lowercase then replace:", name.lower().replace('on', 'ON'))
+
+# Membership test
+x = 'Monir' in name
+print("'Monir' in name:", x)
+print("'Monir' in name (direct):", 'Monir' in name)
+
+# -----------------------------
+# 2️⃣ Arithmetic Operations
+# -----------------------------
+x = 10
+x = 10 + 10
+x += 5  # shorthand for x = x + 5
+y = 2
+z = -5
+zz = '12'
+z1 = 0
+
+print("\nArithmetic Examples:")
+print("x:", x)
+print("x + y:", x + y)
+print("x + y + z:", x + y + z)
+print("x - y:", x - y)
+print("x * y:", x * y)
+print("x ** y:", x ** y)
+print("x / y:", x / y)
+print("x // y (floor division):", x // y)
+print("Convert string to int and add:", int(zz) + x)
+
+# Handle division by zero safely
+try:
+    print("x / z1:", x / z1)
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+
+# -----------------------------
+# 3️⃣ Comparison Operators
+# -----------------------------
+print("\nComparison Operators:")
+print("x >= z1:", x >= z1)
+print("x <= z1:", x <= z1)
+print("x == z1:", x == z1)
+print("x != z1:", x != z1)
+
+# -----------------------------
+# 4️⃣ Logical Operators
+# -----------------------------
+print("\nLogical Operators:")
+print("x > 5 and x < 15:", x > 5 and x < 15)
+print("x > 5 or x < 15:", x > 5 or x < 15)
+print("not x > 7:", not x > 7)
+
+# -----------------------------
+# 5️⃣ Conditional Statements
+# -----------------------------
+temp = int(input("\nEnter Temperature: "))
+
+if temp > 30:
+    print("It's Hot")
+    print("Drink chilled drink")
+elif temp < 5:
+    print("It's a cold day")
+    print("Wear a jacket")
+elif 10 <= temp <= 30:  # Pythonic chained comparison
+    print("It's a beautiful day")
+else:
+    print("It is cold")
